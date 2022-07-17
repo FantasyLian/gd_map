@@ -2,7 +2,7 @@
   <section id="container"></section>
 </template>
 <script>
-import { defineComponent, getCurrentInstance, onMounted, toRefs } from 'vue'
+import { defineComponent, getCurrentInstance, onMounted, reactive, toRefs } from 'vue'
 import { shallowRef } from '@vue/reactivity'
 import AMapLoader from '@amap/amap-jsapi-loader'
 export default defineComponent({
@@ -10,10 +10,10 @@ export default defineComponent({
     const { proxy } = getCurrentInstance()
     const map = shallowRef(null)
 
-    const state = {
+    const state = reactive({
       lat: 106.74559,
       lng: 25.431777
-    }
+    })
 
     // DOM初始化完成进行地图初始化
     onMounted(() => {
@@ -24,7 +24,7 @@ export default defineComponent({
       AMapLoader.load({
         key: '786b2971239724c0f93431458965021c', // 申请好的Web端开发者Key，首次调用 load 时必填
         version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-        plugins: ['AMap.Geolocation'] // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        plugins: ['AMap.Geolocation, AMap.Scale, AMap.ToolBar'] // 需要使用的的插件列表，如比例尺'AMap.Scale'等
       }).then(AMap => {
         proxy.map = new AMap.Map('container', { // 设置地图容器id
           viewMode: '3D', // 是否为3D地图模式
@@ -47,6 +47,7 @@ export default defineComponent({
         })
 
         proxy.map.add(marker)
+        proxy.map.on('click', clickHandler)
 
         proxy.map.plugin('AMap.Geolocation', () => {
           const geolocation = new AMap.Geolocation({
@@ -78,7 +79,7 @@ export default defineComponent({
 
           function onError (data) {
             // 定位出错
-            console.log(data)
+            console.error(data)
           }
         })
       }).catch(e => {
@@ -86,10 +87,15 @@ export default defineComponent({
       })
     }
 
+    const clickHandler = e => {
+      console.log('您在[ ' + e.lnglat.getLng() + ',' + e.lnglat.getLat() + ' ]的位置点击了地图！')
+    }
+
     return {
       map,
       ...toRefs(state),
-      initMap
+      initMap,
+      clickHandler
     }
   }
 })
