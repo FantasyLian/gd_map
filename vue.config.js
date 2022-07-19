@@ -1,4 +1,5 @@
 const { defineConfig } = require('@vue/cli-service')
+const Setting = require('./src/setting')
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -9,23 +10,38 @@ module.exports = defineConfig({
 
   chainWebpack: config => {
     config.plugin('html').tap(args => {
-      args[0].title = '高德地圖'
+      args[0].title = Setting.title
       return args
     })
   },
 
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          modifyVars: {
+            'primary-color': '#3778e7',
+            'link-color': '#3778e7',
+            'border-radius-base': '2px'
+          },
+          javascriptEnabled: true
+        }
+      }
+    }
+  },
+
   devServer: {
     open: true,
-    host: '0.0.0.0'
-    // proxy: {
-    //   '/api': {
-    //     target: process.env.VUE_APP_BASE_API,
-    //     ws: true,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^/api': ''
-    //     }
-    //   }
-    // }
+    host: '0.0.0.0',
+    proxy: {
+      '/api': {
+        target: Setting.baseURL,
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 })
