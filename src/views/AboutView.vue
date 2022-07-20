@@ -1,5 +1,17 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <a-button type="primary" ghost>按鈕</a-button>
   </div>
 </template>
+<script>
+import { defineComponent } from 'vue'
+import { Button } from 'ant-design-vue'
+export default defineComponent({
+  components: {
+    AButton: Button
+  },
+  setup () {
+
+  }
+})
+</script>
