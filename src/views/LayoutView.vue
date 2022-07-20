@@ -4,9 +4,8 @@
       <header-bar />
     </a-layout-header>
     <a-layout-content>
-
+      <router-view />
     </a-layout-content>
-    <a-layout-footer>技術支持：貴州飛渲科技有限公司</a-layout-footer>
   </a-layout>
 </template>
 <script>
@@ -18,7 +17,6 @@ export default defineComponent({
   components: {
     ALayout: Layout,
     ALayoutHeader: Layout.Header,
-    ALayoutFooter: Layout.Footer,
     ALayoutContent: Layout.Content,
     HeaderBar
   },
@@ -41,6 +39,10 @@ export default defineComponent({
   }
   .ant-layout-footer {
     padding: 0 25px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent;
   }
 }
 </style>
