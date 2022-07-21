@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="home">地图</div>
+  <div id="container"></div>
 </template>
 
 <script>
@@ -32,10 +32,10 @@ export default defineComponent({
         })
 
         const cop = new AMap.Icon({
-          size: new AMap.Size(30, 30), // 图标尺寸
+          size: new AMap.Size(60, 60), // 图标尺寸
           image: require('../assets/images/way_btn.jpg'), // Icon的图像
           imageOffset: new AMap.Pixel(0, 0), // 图像相对展示区域的偏移量，适于雪碧图等
-          imageSize: new AMap.Size(30, 30) // 根据所设置的大小拉伸或压缩图片
+          imageSize: new AMap.Size(60, 60) // 根据所设置的大小拉伸或压缩图片
         })
 
         const marker = new AMap.Marker({

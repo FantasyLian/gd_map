@@ -29,7 +29,7 @@ module.exports = defineConfig({
     host: '0.0.0.0'
     // proxy: {
     //   '/api': {
-    //     target: '',
+    //     target: process.env.VUE_APP_BASE_API,
     //     ws: true,
     //     changeOrigin: true,
     //     pathRewrite: {
