@@ -99,7 +99,7 @@ section {
   margin: 0 auto;
   background: url("@/assets/images/login_bg.png") no-repeat left center, linear-gradient(180deg, #161e86 0%, #131724 100%);
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 .login-wrap {
@@ -139,11 +139,9 @@ section {
     .ant-btn {
       width: 340px;
       height: 50px;
-      // background-color: #145bf8;
       border-radius: 4px;
       font-size: 18px;
       font-weight: 500;
-      color: #fff;
       line-height: 25px;
     }
   }
