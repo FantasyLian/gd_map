@@ -54,8 +54,9 @@
 </template>
 <script>
 import { defineComponent, reactive } from 'vue'
-import { Form, Button, Input } from 'ant-design-vue'
+import { Form, Button, Input, Message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { fetchLogin } from '@/api'
 export default defineComponent({
   components: {
     AForm: Form,
@@ -74,16 +75,28 @@ export default defineComponent({
 
     const onFinish = values => {
       console.log('Success:', values)
+      handleLogin()
     }
 
     const onFinishFailed = errorInfo => {
       console.log('Failed:', errorInfo)
     }
 
+    const handleLogin = async () => {
+      await fetchLogin({ ...formState }).then(({ code, data }) => {
+        if (code === 200) {
+          Message.success({
+            content: `登录成功！欢迎${data.user.nickname}`
+          })
+        }
+      })
+    }
+
     return {
       formState,
       onFinish,
-      onFinishFailed
+      onFinishFailed,
+      handleLogin
     }
   }
 })
@@ -97,7 +110,8 @@ section {
   width: 1500px;
   height: 100%;
   margin: 0 auto;
-  background: url("@/assets/images/login_bg.png") no-repeat left center, linear-gradient(180deg, #161e86 0%, #131724 100%);
+  background: url("@/assets/images/login_bg.png") no-repeat left center,
+    linear-gradient(180deg, #161e86 0%, #131724 100%);
   display: flex;
   justify-content: flex-end;
   align-items: center;
